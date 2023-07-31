@@ -5,19 +5,18 @@ import ReactDOM from "react-dom";
 import React from "react";
 import { average, prominent } from "color.js";
 import { ColorExtractor } from "react-color-extractor";
-// import Image from "next/image";
+import NextImage from "next/image";
 import { getPlaiceholder } from "plaiceholder";
 
 import ColorThief from "colorthief";
-import Color, { Palette } from "color-thief-react";
 import useImageColor from 'use-image-color'
-import { Image } from 'use-image-color'
+// import { Image } from 'use-image-color'
 
 interface PokemonProps {
   pokemons: {
     id: number;
     name: string;
-    color: [number, number, number];
+    color: any;
     imgUrl: string;
     url: string;
   }[];
@@ -89,7 +88,7 @@ export default function Home({ pokemons }: PokemonProps) {
   // };
   // console.log(pokemonColor)
 
-  
+ 
   return (
     <>
       {pokemons.map( (pokemon) => {
@@ -115,6 +114,8 @@ export default function Home({ pokemons }: PokemonProps) {
               //   )}
               // </Color>
 
+
+
         return (
           <div
             key={pokemon.id}
@@ -123,6 +124,28 @@ export default function Home({ pokemons }: PokemonProps) {
             //   backgroundColor: color,
             // }}
           >
+
+          <NextImage
+            className="image"
+            src={pokemon.imgUrl}
+            alt={'image.alt'}
+            // layout="fill"
+            objectFit="cover"
+            objectPosition="top center"
+            // placeholder="blur"
+            // blurDataURL="/images/blur.jpg"
+            width={300}
+            height={300}
+            onLoadingComplete={(e) => {
+              const colorThief = new ColorThief()
+              const color = colorThief.getColor(e)
+              console.log(color)
+
+              // e.style.backgroundColor =`rgb(${color[0]}, ${color[1]}, ${color[2]})`
+              // e.style.width= '100%'
+              e.parentElement.style.backgroundColor =`rgb(${color[0]}, ${color[1]}, ${color[2]})`
+            }}
+          />
             
             {/* <Color src={"https://live.staticflickr.com/65535/50237066832_72c7290c5c_c.jpg"} crossOrigin="anonymous" format="hex">
               {({ data, loading }) => {
@@ -159,7 +182,7 @@ export default function Home({ pokemons }: PokemonProps) {
             {/* {JSON.stringify(pokemonColor.find((e) => e.id == pokemon.id))} */}
 
             <h1>
-              {/* {colors} - */}
+              {pokemon.color} -
               {pokemon.id} - {pokemon.name}
             </h1>
           </div>
@@ -194,11 +217,36 @@ export const getServerSideProps: GetServerSideProps = async () => {
       
     // const img = resolve(process.cwd(), 'rainbow.png');
 
-      // ColorThief.getColor(imgUrl)
-      //     .then(color => { console.log(color) })
-      //     .catch(err => { console.log(err) })
+    
+    // img.onload = () => {
+      // const colorThief = new ColorThief();
+      // const colorPalette = colorThief.getPalette(img, 6);
+      // const color = colorThief.getColor(imgUrl)
+      // };
 
-      let color = "#";
+      // const img = new Image()
+      // img.src = imgUrl;
+      // const color = ColorThief.getColor(img)
+
+      const color = ''
+
+      // const img = new Image()
+      // const MyImage = (props) => {
+      //   return (
+      //     <NextImage
+      //       src={imgUrl}
+      //       alt="Picture of the author"
+      //       // width={"350px"}
+      //       // height={"300px"}
+      //     />
+      //   )
+      // }
+      // // img.src = 'https://live.staticflickr.com/65535/50237066832_72c7290c5c_c.jpg';
+      // const color = JSON.stringify(ColorThief.getColor(MyImage))
+
+
+      // const img = resolve(process.cwd(), 'rainbow.png');
+
       // await prominent(imgUrl, { format: 'hex' }).then(
       //   color => color[1]
       // )
