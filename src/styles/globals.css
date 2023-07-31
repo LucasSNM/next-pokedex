@@ -1,4 +1,9 @@
 :root {
+  font-family: Roboto, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background-color: #f0f2ff;
+
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
@@ -16,6 +21,7 @@
     #54d6ff33 120deg,
     #0071ff33 160deg,
     transparent 360deg
+    
   );
   --secondary-glow: radial-gradient(
     rgba(255, 255, 255, 1),
