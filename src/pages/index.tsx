@@ -4,7 +4,7 @@ import Image from "next/image";
 
 
 import ColorThief from "colorthief";
-import { PokeContainer, PokeCardContainer, PokeContainerInside, PokemonCardInfo } from "@/styles/pages/Home";
+import { PokeContainer, PokeCardContainer, PokeContainerInside, PokemonCardInfo, PokemonCardImage } from "@/styles/pages/Home";
 import Link from "next/link";
 
 interface PokemonProps {
@@ -46,7 +46,7 @@ export default function Home({ pokemons }: PokemonProps) {
             <PokemonCardInfo href={`/pokemon/${pokemon.id}`} key={pokemon.id}>
 
 
-              <Image
+              <PokemonCardImage
                 className="image"
                 src={pokemon.imgUrl}
                 alt={'image.alt'}
@@ -65,10 +65,13 @@ export default function Home({ pokemons }: PokemonProps) {
                 <p>
                   #{pokemon.id}
                 </p>
-                <h1>
+                <h2>
                   {capitalizeFirstLetter(pokemon.name)}
-                </h1>
-                <p> </p>
+                </h2>
+                <p> 
+                  <p>Tipo1</p>
+                  <p>Tipo2</p>
+                </p>
               </span>
             </PokemonCardInfo>
 
