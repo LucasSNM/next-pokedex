@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { styled } from "../index";
 // import Image from "next/image";
 
@@ -30,7 +31,7 @@ export const PokeCardContainer = styled(`div`, {
     transition: '0.2s ease-in-out',
     
     ':hover &': {
-        opacity: '0.7',
+        opacity: '0.85',
     },
 
     '&:hover': {
@@ -39,14 +40,14 @@ export const PokeCardContainer = styled(`div`, {
     },
     
     div: {
-        display: 'flex',
-        justifyContent: 'space-around',
-        width: '15rem',
-        height: '100%',
-        // flexDirection: 'row',
-        alignItems: 'center',
-        flexWrap: 'nowrap',
-        transform: 'translateX(-1rem)',
+        // display: 'flex',
+        // justifyContent: 'space-around',
+        // width: '15rem',
+        // height: '100%',
+        // // flexDirection: 'row',
+        // alignItems: 'center',
+        // flexWrap: 'nowrap',
+        // transform: 'translateX(-1rem)',
         
     },
     span: {
@@ -62,3 +63,13 @@ export const PokeCardContainer = styled(`div`, {
     }
 })
 
+export const PokemonCardInfo = styled(Link, {
+    display: 'flex',
+        justifyContent: 'space-around',
+        width: '15rem',
+        height: '100%',
+        // flexDirection: 'row',
+        alignItems: 'center',
+        flexWrap: 'nowrap',
+        transform: 'translateX(-1rem)',
+})

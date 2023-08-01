@@ -4,7 +4,8 @@ import Image from "next/image";
 
 
 import ColorThief from "colorthief";
-import { PokeCard, PokeContainer, PokeCardContainer, PokeContainerInside } from "@/styles/pages/Home";
+import { PokeContainer, PokeCardContainer, PokeContainerInside, PokemonCardInfo } from "@/styles/pages/Home";
+import Link from "next/link";
 
 interface PokemonProps {
   pokemons: {
@@ -42,7 +43,7 @@ export default function Home({ pokemons }: PokemonProps) {
             className="pokemonCard"
             >
 
-            <div>
+            <PokemonCardInfo href={`/pokemon/${pokemon.id}`} key={pokemon.id}>
 
 
               <Image
@@ -69,7 +70,7 @@ export default function Home({ pokemons }: PokemonProps) {
                 </h1>
                 <p> </p>
               </span>
-            </div>
+            </PokemonCardInfo>
 
           </PokeCardContainer>
         );
@@ -79,7 +80,7 @@ export default function Home({ pokemons }: PokemonProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(
     `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=500`
   );
@@ -108,6 +109,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       pokemons,
     },
-    // revalidate: 60 * 60 * 2, // 2 horas
+    revalidate: 60 * 60 * 2, // 2 horas
   };
 };
