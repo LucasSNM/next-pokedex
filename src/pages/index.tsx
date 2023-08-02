@@ -4,7 +4,7 @@ import Image from "next/image";
 
 
 import ColorThief from "colorthief";
-import { PokeContainer, PokeCardContainer, PokeContainerInside, PokemonCardInfo, PokemonCardImage } from "@/styles/pages/Home";
+import { PokeContainer, PokeCardContainer, PokeContainerInside, PokemonCardInfo, PokemonCardImage, PokemonCardInfoType } from "@/styles/pages/Home";
 import Link from "next/link";
 
 interface PokemonProps {
@@ -23,12 +23,6 @@ interface pokemonColor {
 }
 [];
 
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-const Loading = () => <div>Loading...</div>;
-
 export default function Home({ pokemons }: PokemonProps) {
 
   return (
@@ -44,7 +38,6 @@ export default function Home({ pokemons }: PokemonProps) {
             >
 
             <PokemonCardInfo href={`/pokemon/${pokemon.id}`} key={pokemon.id}>
-
 
               <PokemonCardImage
                 className="image"
@@ -66,12 +59,12 @@ export default function Home({ pokemons }: PokemonProps) {
                   #{pokemon.id}
                 </p>
                 <h2>
-                  {capitalizeFirstLetter(pokemon.name)}
+                  {pokemon.name}
                 </h2>
-                <p> 
-                  <p>Tipo1</p>
-                  <p>Tipo2</p>
-                </p>
+                <PokemonCardInfoType> 
+                  <small>Tipo1</small>
+                  <small>Tipo2</small>
+                </PokemonCardInfoType>
               </span>
             </PokemonCardInfo>
 
@@ -84,12 +77,15 @@ export default function Home({ pokemons }: PokemonProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   const res = await fetch(
-    `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=500`
+    `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=5000`
   );
   const poke = await res.json();
-
-
 
   const pokemons = await Promise.all(
     poke.results.map(async (pokemon) => {
@@ -101,7 +97,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
       return {
         id: id,
-        name: pokemon.name,
+        name: capitalizeFirstLetter(pokemon.name),
         imgUrl: imgUrl,
         url: pokemon.url,
       };

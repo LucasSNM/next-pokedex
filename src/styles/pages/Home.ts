@@ -23,30 +23,9 @@ export const PokeCardContainer = styled(`div`, {
     width: 300,
     height: 125,
     borderRadius: '20px',
-    // display: 'flex',
-    // justifyContent: 'center',
-    // flexDirection: 'column',
-    // alignItems: 'center',
-    // transform: 'translateX(2rem)',
-    // opacity: '1',
     transition: '0.2s ease-in-out',
     
-
-    
-    div: {
-        // display: 'flex',
-        // justifyContent: 'space-around',
-        // width: '15rem',
-        // height: '100%',
-        // // flexDirection: 'row',
-        // alignItems: 'center',
-        // flexWrap: 'nowrap',
-        // transform: 'translateX(-1rem)',
-        
-    },
     span: {
-        // height: '100%',
-        // width: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-evenly',
@@ -54,10 +33,6 @@ export const PokeCardContainer = styled(`div`, {
         textShadow: '0 0 12px rgb(0 0 0 / 25%)',
 
     },
-    
-    Image: {
-        
-    }
 })
 
 export const PokemonCardInfo = styled(Link, {
@@ -85,6 +60,10 @@ export const PokemonCardInfo = styled(Link, {
 
 export const PokemonCardImage = styled(Image, {
     transform: 'translateX(-2.5rem)',
-    // position: 'absolute',
-    // float: 'right',
+})
+
+export const PokemonCardInfoType = styled('div',{
+    display: 'flex',
+    gap: '1rem',
+    width: '100%',
 })
