@@ -47,7 +47,7 @@ export default function Pokemon({ pokemon }: PokemonDetailsProps) {
         </span>
         <PokeInfoType>
           {pokemon.type.map((e) => {
-            return <span>{capitalizeFirstLetter(e.type.name)}</span>;
+            return <span key={e.type.name}>{capitalizeFirstLetter(e.type.name)}</span>;
           })}
         </PokeInfoType>
       </div>
