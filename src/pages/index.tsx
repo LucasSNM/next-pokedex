@@ -4,8 +4,10 @@ import Image from "next/image";
 
 
 import ColorThief from "colorthief";
-import { PokeContainer, PokeCardContainer, PokeContainerInside, PokemonCardInfo, PokemonCardImage, PokemonCardInfoType } from "@/styles/pages/Home";
+import { PokeContainer, PokeCardContainer, PokeContainerInside, PokemonCardInfo, PokemonCardImage, PokemonCardInfoType, Header } from "@/styles/pages/Home";
 import Link from "next/link";
+
+import logoImg from '../assets/logo.png'
 
 interface PokemonProps {
   pokemons: {
@@ -15,17 +17,32 @@ interface PokemonProps {
     imgUrl: string;
     url: string;
   }[];
+  pokedex: {
+    id: number;
+    name: string;
+    url: string;
+  }[]
 }
 
-interface pokemonColor {
-  id: number;
-  color: string;
-}
-[];
 
-export default function Home({ pokemons }: PokemonProps) {
+export default function Home({ pokemons, pokedex }: PokemonProps) {
 
   return (
+    <>
+    <Header>
+        <Image src={logoImg.src} alt='' width={195} height={150}/>
+    </Header>
+
+    <div>
+      {
+        pokedex.map(dex => {
+          return (
+            <Link href={`/${dex.id}`} key={'pokedex-' + dex.id}>{dex.name}</Link>
+          )
+        })
+      }
+    </div>
+
     <PokeContainer>
       <PokeContainerInside>
 
@@ -37,7 +54,7 @@ export default function Home({ pokemons }: PokemonProps) {
             className="pokemonCard"
             >
 
-            <PokemonCardInfo href={`/pokemon/${pokemon.id}`} key={pokemon.id}>
+            <PokemonCardInfo href={`/pokemon/${pokemon.id}`} key={'pokemon-' + pokemon.id}>
 
               <PokemonCardImage
                 className="image"
@@ -73,6 +90,8 @@ export default function Home({ pokemons }: PokemonProps) {
       })}
       </PokeContainerInside>
     </PokeContainer>
+
+    </>
   );
 }
 
@@ -83,12 +102,17 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 
   const res = await fetch(
-    `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=5000`
+    `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`
   );
   const poke = await res.json();
 
-  const pokemons = await Promise.all(
-    poke.results.map(async (pokemon) => {
+  const res2 = await fetch(
+    `https://pokeapi.co/api/v2/pokedex/`
+  );
+  const dex = await res2.json();
+
+  const pokemons = 
+    poke.results.map((pokemon) => {
       let id = pokemon.url
         .replace("https://pokeapi.co/api/v2/pokemon/", "")
         .replace("/", "");
@@ -102,11 +126,23 @@ export const getStaticProps: GetStaticProps = async () => {
         url: pokemon.url,
       };
     })
-  );
+
+  const pokedex = dex.results.map(dex => {
+    let id = dex.url
+        .replace("ttps://pokeapi.co/api/v2/pokedex/", "")
+        .replace("/", "");
+
+    return {
+      name: dex.name,
+      id: id,
+      url: dex.url,
+    }
+  })
 
   return {
     props: {
       pokemons,
+      pokedex,
     },
     revalidate: 60 * 60 * 2, // 2 horas
   };

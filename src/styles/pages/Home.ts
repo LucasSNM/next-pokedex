@@ -2,11 +2,20 @@ import Link from "next/link";
 import { styled } from "../index";
 import Image from "next/image";
 
+export const Header = styled('div', {
+    width: '100vw',
+    margin: '0 auto',
+    marginBottom: '2.5rem',
+
+    backgroundColor: 'rgb(255,255,255)',
+    backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,1) 15%, rgba(246,12,82,1) 100%)',
+})
+
 export const PokeContainer = styled(`div`, {
     Width: "100%",
     display: 'flex',
     justifyContent: 'center',
-    backgroundColor: '#f6f7ff',
+    overflow: 'hidden',
 })
 
 export const PokeContainerInside = styled(`div`, {
@@ -49,7 +58,7 @@ export const PokemonCardInfo = styled(Link, {
     transition: '0.4s ease-in-out',
 
     ':hover &': {
-        opacity: '0.7',
+        // opacity: '0.7',
     },
 
     '&:hover': {
