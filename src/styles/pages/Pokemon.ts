@@ -15,6 +15,7 @@ export const PokeInfo = styled('div', {
 
     transition: '0.8s ease-in-out',
 
+
     div: {
         height: '100%',
         display: 'flex',

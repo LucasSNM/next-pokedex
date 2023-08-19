@@ -15,14 +15,23 @@ export const Header = styled(Link, {
     backgroundPositionY: 'bottom',
     backgroundSize: 'cover',
 
-    padding: '0px 10rem',
-    opacity: '0.3',
+    // padding: '0px 10rem',
+    // opacity: '0.3',
 
     maskImage: 'linear-gradient(black, transparent)',
 
     position: 'absolute',
     top: '0px',
 
+    zIndex: 0,
+
+    display: 'flex',
+    justifyContent: 'center',
+    color: '$gray900',
+
+    Image: {
+        opacity: '1',
+    },
 })
 
 export const PokeContainer = styled(`div`, {
@@ -30,6 +39,7 @@ export const PokeContainer = styled(`div`, {
     display: 'flex',
     justifyContent: 'center',
     overflow: 'hidden',
+    
 })
 
 export const PokeContainerInside = styled(`div`, {
@@ -46,7 +56,7 @@ export const PokeCardContainer = styled(`div`, {
     width: 300,
     height: 125,
     borderRadius: '20px',
-    transition: '0.2s ease-in-out',
+    transition: '0.6s ease-in-out',
     
     span: {
         display: 'flex',
@@ -54,8 +64,9 @@ export const PokeCardContainer = styled(`div`, {
         justifyContent: 'space-evenly',
         alignItems: 'flex-end',
         textShadow: '0 0 12px rgb(0 0 0 / 25%)',
-
     },
+
+    
 })
 
 export const PokemonCardInfo = styled(Link, {
@@ -69,7 +80,7 @@ export const PokemonCardInfo = styled(Link, {
     // flexDirection: 'row',
     // border: '1px solid red',
 
-    transition: '0.4s ease-in-out',
+    transition: '0.6s ease-in-out',
 
     ':hover &': {
         // opacity: '0.7',
@@ -79,6 +90,7 @@ export const PokemonCardInfo = styled(Link, {
         opacity: '1',
         cursor: 'pointer',
     },
+    
 })
 
 export const PokemonCardImage = styled(Image, {
@@ -95,4 +107,26 @@ export const PokemonCardInfoType = styled('div',{
 export const TopInfoContainer = styled(`div`, {
     color: `$gray900`,
     margin: '10rem 5rem 2rem 5rem',
+    zIndex: 1,
+
+    fontSize: '1.5rem',
+
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    
+    input: {
+        margin: '1rem 0',
+        maxWidth: '1000px',
+        width: '100%',
+        padding: '1rem',
+        fontSize: '1.8rem',
+        backgroundColor: '$gray100',
+        borderColor: '$gray500',
+        borderRadius: '8px',
+        border: 'none',
+        color: '$gray500',
+        opacity: '0.8',
+    }
 })
