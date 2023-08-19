@@ -2,13 +2,27 @@ import Link from "next/link";
 import { styled } from "../index";
 import Image from "next/image";
 
-export const Header = styled('div', {
-    width: '100vw',
-    margin: '0 auto',
-    marginBottom: '2.5rem',
+import logoImg from '../../assets/pokeball.svg'
 
-    backgroundColor: 'rgb(255,255,255)',
-    backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,1) 15%, rgba(246,12,82,1) 100%)',
+
+export const Header = styled(Link, {
+    width: '55vw',
+    height: '20rem',
+
+    backgroundImage: `url(${logoImg.src})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPositionX: 'center',
+    backgroundPositionY: 'bottom',
+    backgroundSize: 'cover',
+
+    padding: '0px 10rem',
+    opacity: '0.3',
+
+    maskImage: 'linear-gradient(black, transparent)',
+
+    position: 'absolute',
+    top: '0px',
+
 })
 
 export const PokeContainer = styled(`div`, {
@@ -75,4 +89,10 @@ export const PokemonCardInfoType = styled('div',{
     display: 'flex',
     gap: '1rem',
     width: '100%',
+})
+
+
+export const TopInfoContainer = styled(`div`, {
+    color: `$gray900`,
+    margin: '10rem 5rem 2rem 5rem',
 })

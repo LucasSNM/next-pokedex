@@ -4,10 +4,10 @@ import Image from "next/image";
 
 
 import ColorThief from "colorthief";
-import { PokeContainer, PokeCardContainer, PokeContainerInside, PokemonCardInfo, PokemonCardImage, PokemonCardInfoType, Header } from "@/styles/pages/Home";
+import { PokeContainer, PokeCardContainer, PokeContainerInside, PokemonCardInfo, PokemonCardImage, PokemonCardInfoType, Header, TopInfoContainer } from "@/styles/pages/Home";
 import Link from "next/link";
 
-import logoImg from '../assets/logo.png'
+import logoImg from '../assets/pokeball.svg'
 
 interface PokemonProps {
   pokemons: {
@@ -29,19 +29,25 @@ export default function Home({ pokemons, pokedex }: PokemonProps) {
 
   return (
     <>
-    <Header>
-        <Image src={logoImg.src} alt='' width={195} height={150}/>
-    </Header>
 
-    <div>
-      {
-        pokedex.map(dex => {
-          return (
-            <Link href={`/${dex.id}`} key={'pokedex-' + dex.id}>{dex.name}</Link>
-          )
-        })
-      }
-    </div>
+
+    <TopInfoContainer>
+
+      <h3>
+      The Pokédex is a tool that acts as a comprehensive reference guide for the creatures that inhabit the Pokémon world. Designed to assist trainers on their journey to become Pokémon Masters, the Pokédex offers valuable information about the characteristics, abilities, and habitats of various Pokémon species.
+      </h3>
+
+      {/* <div>
+        {
+          pokedex.map(dex => {
+            return (
+              <Link href={`/${dex.id}`} key={'pokedex-' + dex.id}>{dex.name}</Link>
+            )
+          })
+        }
+      </div> */}
+    </TopInfoContainer>
+
 
     <PokeContainer>
       <PokeContainerInside>
