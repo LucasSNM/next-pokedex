@@ -9,4 +9,5 @@ export const Container = styled('div', {
 
     backgroundColor: '#f6f7ff',
     
+    overflow: 'hidden',
 })

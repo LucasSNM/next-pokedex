@@ -66,6 +66,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
   params,
 }) => {
+  
   const pokemonId = params.id;
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
   const pokemon = await res.json();

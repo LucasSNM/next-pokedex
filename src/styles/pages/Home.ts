@@ -34,10 +34,23 @@ export const Header = styled(Link, {
     },
 })
 
+export const Footer = styled('footer', {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '$gray100',
+    color: '$gray900',
+
+    fontStyle: 'bold',
+})
+
 export const PokeContainer = styled(`div`, {
     Width: "100%",
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
     overflow: 'hidden',
     
 })
@@ -66,43 +79,40 @@ export const PokeCardContainer = styled(`div`, {
         textShadow: '0 0 12px rgb(0 0 0 / 25%)',
     },
 
+    '.info': {
+        padding: '0 1rem',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'space-around',
+        flexWrap: 'nowrap',
+        alignItems: 'center',
+        // flexDirection: 'row',
+        // border: '1px solid red',
+        
+        transition: '0.6s ease-in-out',
+        
+        ':hover &': {
+            // opacity: '0.7',
+        },
+        
+        '&:hover': {
+            opacity: '1',
+            cursor: 'pointer',
+        },
+        
+        '.image': {
+            transform: 'translateX(-2.5rem)',
+        },
+        
+        '.type': {
+            display: 'flex',
+            gap: '1rem',
+            width: '100%',
+        }
+    }
     
 })
-
-export const PokemonCardInfo = styled(Link, {
-    padding: '0 1rem',
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'space-around',
-    flexWrap: 'nowrap',
-    alignItems: 'center',
-    // flexDirection: 'row',
-    // border: '1px solid red',
-
-    transition: '0.6s ease-in-out',
-
-    ':hover &': {
-        // opacity: '0.7',
-    },
-
-    '&:hover': {
-        opacity: '1',
-        cursor: 'pointer',
-    },
-    
-})
-
-export const PokemonCardImage = styled(Image, {
-    transform: 'translateX(-2.5rem)',
-})
-
-export const PokemonCardInfoType = styled('div',{
-    display: 'flex',
-    gap: '1rem',
-    width: '100%',
-})
-
 
 export const TopInfoContainer = styled(`div`, {
     color: `$gray900`,

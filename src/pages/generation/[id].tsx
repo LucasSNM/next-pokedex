@@ -1,5 +1,5 @@
-import { GetServerSideProps, GetStaticProps } from "next";
-import React, { useEffect, useRef, useState } from "react";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import React, { useState } from "react";
 import Image from "next/image";
 
 import ColorThief from "colorthief";
@@ -7,12 +7,15 @@ import {
   PokeContainer,
   PokeCardContainer,
   PokeContainerInside,
+  PokemonCardInfo,
+  PokemonCardImage,
+  PokemonCardInfoType,
   Header,
   TopInfoContainer,
 } from "@/styles/pages/Home";
 
 interface PokemonProps {
-  pokemonsList: {
+  pokemons: {
     id: number;
     name: string;
     imgUrl: string;
@@ -20,47 +23,18 @@ interface PokemonProps {
   }[];
 }
 
-import missignoImgUrl from "../assets/MissingNo.png"; //'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/MissingNo.svg/1200px-MissingNo.svg.png'
-import Link from "next/link";
+import missignoImgUrl from '../../assets/MissingNo.png'
 
-export default function Home({ pokemonsList }: PokemonProps) {
+export default function Home({ pokemons }: PokemonProps) {
+  const [searchFilter, setSearchFilter] = useState('');
 
-  const [pokemons, setPokemons] = useState<{id: number, name: string, imgUrl: string, url: string}[]>(pokemonsList)
-  const [searchFilter, setSearchFilter] = useState("")
-  const lastPokemon = useRef()
-
-  pokemons.sort((a, b) => {
-    return a.id - b.id;
-  })
-
-  const pokemonsFiltered = pokemons.filter((e) =>
-    e.name.toUpperCase().includes(searchFilter.toUpperCase())
-  )
-
-  if (pokemonsFiltered.length == 0) {
-    pokemonsFiltered.push({
-      id: 0,
-      name: "MissingNo.",
-      imgUrl: missignoImgUrl.src,
-      url: "#",
-    });
+  // const pokeSpeciesSort = pokeSpecies.sort((a,b) => {a.url - b.url})
+  pokemons = pokemons.sort((a,b) => {return a.id - b.id})
+  pokemons = pokemons.filter((e) => e.name.toUpperCase().includes(searchFilter.toUpperCase()) )
+  if(pokemons.length == 0){
+    pokemons.push({id: 0, name: 'MissingNo.', imgUrl: missignoImgUrl.src, url: '#'})
   }
 
-  useEffect(() => {
-    if (searchFilter != '') return
-    
-    const observer = new IntersectionObserver(async ([entry]) => {
-
-      if (lastPokemon && entry.isIntersecting) {
-        const newPokemons = await carregaApiPokemons(pokemons.length)
-        setPokemons([...pokemons,...newPokemons])
-
-        observer.unobserve(entry.target)
-      }
-    });
-  
-    observer.observe(lastPokemon.current);
-  }, [pokemons]);
 
   return (
     <>
@@ -92,22 +66,20 @@ export default function Home({ pokemonsList }: PokemonProps) {
 
       <PokeContainer>
         <PokeContainerInside>
-          {pokemonsFiltered.map((pokemon) => {
+          {
+          pokemons.map((pokemon) => {
             return (
-              <PokeCardContainer 
-                key={pokemon.id} 
-                className="pokemonCard" 
-                ref={() => {if(pokemon.id == pokemons.length - 1) lastPokemon}}
-              >
-                <Link 
-                  href={`/pokemon/${pokemon.id}`}
+              <PokeCardContainer key={pokemon.id} className="pokemonCard">
+                <PokemonCardInfo
+                  href={`../pokemon/${pokemon.id}`}
                   key={"pokemon-" + pokemon.id}
-                  className='info'
                 >
-                  <Image
+                  <PokemonCardImage
                     className="image"
                     src={pokemon.imgUrl}
                     alt={"image.alt"}
+                    // objectFit="cover"
+                    // objectPosition="top center"
                     width={150}
                     height={150}
                     onLoadingComplete={(e) => {
@@ -120,43 +92,47 @@ export default function Home({ pokemonsList }: PokemonProps) {
                   <span>
                     <p>#{pokemon.id}</p>
                     <h2>{pokemon.name}</h2>
-                    <div className="type">
+                    <PokemonCardInfoType>
                       <small>Tipo1</small>
                       <small>Tipo2</small>
-                    </div>
+                    </PokemonCardInfoType>
                   </span>
-                </Link>
+                </PokemonCardInfo>
               </PokeCardContainer>
             );
           })}
-
-          <input
-            type="button"
-            value='Exploring for more Pokemons...'
-            ref={lastPokemon}
-          />
-            
-
         </PokeContainerInside>
       </PokeContainer>
     </>
   );
 }
 
-const carregaApiPokemons = async (offset) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [{ params: { id: "1" } }],
+    fallback: "blocking",
+  };
+};
 
+export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
+  params,
+}) => {
+  
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
+  const generationId = params.id;
   const res = await fetch(
-    `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=50`
+    `https://pokeapi.co/api/v2/generation/${generationId}`
   );
   const poke = await res.json();
+  const pokeSpecies = poke.pokemon_species
 
-  return poke.results.map((pokemon) => {
+
+  const pokemons = pokeSpecies.map((pokemon) => {
     let id = pokemon.url
-      .replace("https://pokeapi.co/api/v2/pokemon/", "")
+      .replace("https://pokeapi.co/api/v2/pokemon-species/", "")
       .replace("/", "");
 
     let imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
@@ -169,15 +145,10 @@ const carregaApiPokemons = async (offset) => {
     };
   });
 
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-
-  const pokemonsList = await carregaApiPokemons(0)
 
   return {
     props: {
-      pokemonsList,
+      pokemons,
     },
     revalidate: 60 * 60 * 2, // 2 horas
   };
