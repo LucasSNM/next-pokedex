@@ -28,12 +28,12 @@ import missignoImgUrl from '../assets/MissingNo.png' //'https://upload.wikimedia
 export default function Home({ pokemons }: PokemonProps) {
   const [searchFilter, setSearchFilter] = useState('');
 
+  // const pokeSpeciesSort = pokeSpecies.sort((a,b) => {a.url - b.url})
+  pokemons = pokemons.sort((a,b) => {return a.id - b.id})
   pokemons = pokemons.filter((e) => e.name.toUpperCase().includes(searchFilter.toUpperCase()) )
   if(pokemons.length == 0){
     pokemons.push({id: 0, name: 'MissingNo.', imgUrl: missignoImgUrl.src, url: '#'})
   }
-
-  console.log(pokemons)
 
   return (
     <>
@@ -67,7 +67,6 @@ export default function Home({ pokemons }: PokemonProps) {
         <PokeContainerInside>
           {
           pokemons.map((pokemon) => {
-            console.log(pokemon)
             return (
               <PokeCardContainer key={pokemon.id} className="pokemonCard">
                 <PokemonCardInfo
@@ -78,8 +77,8 @@ export default function Home({ pokemons }: PokemonProps) {
                     className="image"
                     src={pokemon.imgUrl}
                     alt={"image.alt"}
-                    objectFit="cover"
-                    objectPosition="top center"
+                    // objectFit="cover"
+                    // objectPosition="top center"
                     width={150}
                     height={150}
                     onLoadingComplete={(e) => {
@@ -113,16 +112,16 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 
   const res = await fetch(
-    `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`
+    // `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`
+    'https://pokeapi.co/api/v2/generation/1'
   );
   const poke = await res.json();
+  const pokeSpecies = poke.pokemon_species
 
-  const res2 = await fetch(`https://pokeapi.co/api/v2/pokedex/`);
-  const dex = await res2.json();
 
-  const pokemons = poke.results.map((pokemon) => {
+  const pokemons = pokeSpecies.map((pokemon) => {
     let id = pokemon.url
-      .replace("https://pokeapi.co/api/v2/pokemon/", "")
+      .replace("https://pokeapi.co/api/v2/pokemon-species/", "")
       .replace("/", "");
 
     let imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
@@ -135,22 +134,10 @@ export const getStaticProps: GetStaticProps = async () => {
     };
   });
 
-  const pokedex = dex.results.map((dex) => {
-    let id = dex.url
-      .replace("ttps://pokeapi.co/api/v2/pokedex/", "")
-      .replace("/", "");
-
-    return {
-      name: dex.name,
-      id: id,
-      url: dex.url,
-    };
-  });
 
   return {
     props: {
       pokemons,
-      pokedex,
     },
     revalidate: 60 * 60 * 2, // 2 horas
   };
