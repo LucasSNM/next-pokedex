@@ -7,7 +7,6 @@ import {
   PokeContainer,
   PokeCardContainer,
   PokeContainerInside,
-  Header,
   TopInfoContainer,
 } from "@/styles/pages/Home";
 

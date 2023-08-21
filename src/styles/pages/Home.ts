@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { styled } from "../index";
-import Image from "next/image";
 
 import logoImg from '../../assets/pokeball.svg'
 

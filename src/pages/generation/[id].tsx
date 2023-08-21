@@ -7,10 +7,6 @@ import {
   PokeContainer,
   PokeCardContainer,
   PokeContainerInside,
-  PokemonCardInfo,
-  PokemonCardImage,
-  PokemonCardInfoType,
-  Header,
   TopInfoContainer,
 } from "@/styles/pages/Home";
 
