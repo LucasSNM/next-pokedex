@@ -32,7 +32,6 @@ export default function Home({ pokemons }: PokemonProps) {
     pokemons.push({id: 0, name: 'MissingNo.', imgUrl: missignoImgUrl.src, url: '#'})
   }
 
-
   return (
     <>
       <TopInfoContainer>
@@ -57,7 +56,7 @@ export default function Home({ pokemons }: PokemonProps) {
           type="text"
           placeholder="Search for your Pokemon..."
           value={searchFilter}
-          onChange={() => setSearchFilter(event.target.value)}
+          onChange={(e) => setSearchFilter(e.currentTarget.value)}
         />
       </TopInfoContainer>
 

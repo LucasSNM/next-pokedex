@@ -85,7 +85,7 @@ export default function Home({ pokemonsList }: PokemonProps) {
           type="text"
           placeholder="Search for your Pokemon..."
           value={searchFilter}
-          onChange={() => setSearchFilter(event.target.value)}
+          onChange={(e) => setSearchFilter(e.currentTarget.value)}
         />
       </TopInfoContainer>
 
