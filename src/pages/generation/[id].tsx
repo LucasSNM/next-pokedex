@@ -20,6 +20,7 @@ interface PokemonProps {
 }
 
 import missignoImgUrl from '../../assets/MissingNo.png'
+import Link from "next/link";
 
 export default function Home({ pokemons }: PokemonProps) {
   const [searchFilter, setSearchFilter] = useState('');
@@ -66,11 +67,12 @@ export default function Home({ pokemons }: PokemonProps) {
           pokemons.map((pokemon) => {
             return (
               <PokeCardContainer key={pokemon.id} className="pokemonCard">
-                <PokemonCardInfo
+                <Link
+                  className='info'
                   href={`../pokemon/${pokemon.id}`}
                   key={"pokemon-" + pokemon.id}
                 >
-                  <PokemonCardImage
+                  <Image
                     className="image"
                     src={pokemon.imgUrl}
                     alt={"image.alt"}
@@ -88,12 +90,12 @@ export default function Home({ pokemons }: PokemonProps) {
                   <span>
                     <p>#{pokemon.id}</p>
                     <h2>{pokemon.name}</h2>
-                    <PokemonCardInfoType>
+                    <div className="type">
                       <small>Tipo1</small>
                       <small>Tipo2</small>
-                    </PokemonCardInfoType>
+                    </div>
                   </span>
-                </PokemonCardInfo>
+                </Link>
               </PokeCardContainer>
             );
           })}
