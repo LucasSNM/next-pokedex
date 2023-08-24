@@ -152,7 +152,7 @@ export const PokeInfo = styled("div", {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: 'space-between',
+    justifyContent: 'top',
 
     color: '$gray900',
   },

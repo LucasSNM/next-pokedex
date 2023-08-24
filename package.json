@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-progress": "^1.0.3",
     "@stitches/react": "^1.2.8",
     "@types/react": "18.2.17",
     "colorthief": "^2.4.0",

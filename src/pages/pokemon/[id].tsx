@@ -3,6 +3,7 @@ import Image from "next/image";
 import ColorThief from "colorthief";
 import { PokeInfo } from "@/styles/pages/Pokemon";
 import Link from "next/link";
+import * as Progress from '@radix-ui/react-progress';
 
 interface PokemonDetailsProps {
   pokemon: {
@@ -13,6 +14,7 @@ interface PokemonDetailsProps {
     height: string;
     weight: string;
     type: any[];
+    stats: any[];
   };
 }
 
@@ -21,34 +23,32 @@ function capitalizeFirstLetter(string) {
 }
 
 export default function Pokemon({ pokemon }: PokemonDetailsProps) {
+  console.log(pokemon.stats);
+
   return (
     <PokeInfo key={pokemon.id}>
       <div className="top">
-          <Link
-            className="arrow arrowLeft"
-            href={`/pokemon/${pokemon.id > 1 ? pokemon.id - 1 : pokemon.id}`}
-          >
-            {"<"}
-          </Link>
-          <Image
-            className="image"
-            src={pokemon.imgUrl}
-            alt={"image.alt"}
-            width={700}
-            height={700}
-            onLoadingComplete={(e) => {
-              const colorThief = new ColorThief();
-              const color = colorThief.getColor(e);
-              e.parentElement.parentElement.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-            }}
-          />
-          <Link
-            className="arrow arrowRight"
-            href={`/pokemon/${pokemon.id + 1}`}
-          >
-            {">"}
-          </Link>
-
+        <Link
+          className="arrow arrowLeft"
+          href={`/pokemon/${pokemon.id > 1 ? pokemon.id - 1 : pokemon.id}`}
+        >
+          {"<"}
+        </Link>
+        <Image
+          className="image"
+          src={pokemon.imgUrl}
+          alt={"image.alt"}
+          width={700}
+          height={700}
+          onLoadingComplete={(e) => {
+            const colorThief = new ColorThief();
+            const color = colorThief.getColor(e);
+            e.parentElement.parentElement.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+          }}
+        />
+        <Link className="arrow arrowRight" href={`/pokemon/${pokemon.id + 1}`}>
+          {">"}
+        </Link>
 
         <div className="description">
           <h4>
@@ -80,8 +80,21 @@ export default function Pokemon({ pokemon }: PokemonDetailsProps) {
       </div>
 
       <div className="information">
-        <hr></hr>
-        <p>TESTE</p>
+        {pokemon.stats.map((e) => {
+          return (
+            <span key={e.name}>
+              {capitalizeFirstLetter(e.name)}: {e.baseStat}
+
+              <Progress.Root className="ProgressRoot" value={e.baseStat}>
+                <Progress.Indicator
+                  className="ProgressIndicator"
+                  style={{ transform: `translateX(-${100 - e.baseStat}%)` }}
+                />
+              </Progress.Root>
+              
+            </span>
+          );
+        })}
       </div>
     </PokeInfo>
   );
@@ -104,6 +117,11 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
   let imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
   let imgUrlShiny = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonId}.png`;
 
+  let stats = [];
+  pokemon.stats.map((stat) => {
+    stats.push({ name: stat.stat.name, baseStat: stat.base_stat });
+  });
+
   return {
     props: {
       pokemon: {
@@ -114,6 +132,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         height: pokemon.height,
         weight: pokemon.weight,
         type: pokemon.types,
+        stats: stats,
       },
     },
     // revalidate: 60 * 60 * 2, // 2 horas
