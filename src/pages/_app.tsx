@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Container>
       <Header href={`../`}>
-        <Image src={logoImg} alt={'image.alt'} width={150}  />
+        {/* <Image src={logoImg} alt={'image.alt'} width={150}  /> */}
       </Header>
       <Component {...pageProps} />
       <Footer> 

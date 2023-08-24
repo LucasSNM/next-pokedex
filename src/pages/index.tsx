@@ -87,6 +87,7 @@ export default function Home({ pokemonsList }: PokemonProps) {
           value={searchFilter}
           onChange={(e) => setSearchFilter(e.currentTarget.value)}
         />
+        
       </TopInfoContainer>
 
       <PokeContainer>
