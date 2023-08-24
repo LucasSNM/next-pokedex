@@ -7,7 +7,7 @@ export const PokeInfo = styled("div", {
   
   fontSize: "3rem",
   lineHeight: 'normal',
-
+  
   textShadow: "0 0 12px rgb(0 0 0 / 25%)",
   
   transition: "0.5s ease-in-out",
@@ -19,9 +19,21 @@ export const PokeInfo = styled("div", {
     justifyContent: "center",
   },
 
+  ".imageContainer": {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  ".description": {
+    padding: "0 2rem",
+  },
+  
   // --------------------------------------------------------------
   // iPads and Tablets – 481px — 768px
   "@media screen and (max-width: 767px) ": {
+    fontSize: "2rem",
 
     '.top': {
         flexDirection: "column",
@@ -111,18 +123,21 @@ export const PokeInfo = styled("div", {
   },
   // --------------------------------------------------------------
   ".arrow": {
-    fontSize: "10rem",
+    fontSize: "5rem",
     position: "absolute",
-    top: "50%",
+    // top: "50%",
     zIndex: 2,
+
+    display: "flex",
+    justifyContent: "space-between",
   },
 
   ".arrowRight": {
-    right: "2rem",
+    right: "1rem",
   },
 
   ".arrowLeft": {
-    left: "2rem",
+    left: "1rem",
   },
   // --------------------------------------------------------------
   // --------------------------------------------------------------
@@ -132,7 +147,7 @@ export const PokeInfo = styled("div", {
     width: "100%",
     height: '200vh',
     backgroundColor: '#f6f7ff',
-    borderRadius: "100px 100px 0 0",
+    borderRadius: "50px 50px 0 0",
 
     display: "flex",
     flexDirection: "column",

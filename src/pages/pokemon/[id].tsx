@@ -21,53 +21,68 @@ function capitalizeFirstLetter(string) {
 }
 
 export default function Pokemon({ pokemon }: PokemonDetailsProps) {
-
   return (
     <PokeInfo key={pokemon.id}>
-
-      <Link className='arrow arrowLeft' href={`/pokemon/${pokemon.id > 1 ? pokemon.id - 1 : pokemon.id}`}>
-        {"<"}
-      </Link>
-      <Link className='arrow arrowRight' href={`/pokemon/${pokemon.id + 1}`}>
-        {">"}
-      </Link>
-
       <div className="top">
+          <Link
+            className="arrow arrowLeft"
+            href={`/pokemon/${pokemon.id > 1 ? pokemon.id - 1 : pokemon.id}`}
+          >
+            {"<"}
+          </Link>
+          <Image
+            className="image"
+            src={pokemon.imgUrl}
+            alt={"image.alt"}
+            width={700}
+            height={700}
+            onLoadingComplete={(e) => {
+              const colorThief = new ColorThief();
+              const color = colorThief.getColor(e);
+              e.parentElement.parentElement.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            }}
+          />
+          <Link
+            className="arrow arrowRight"
+            href={`/pokemon/${pokemon.id + 1}`}
+          >
+            {">"}
+          </Link>
 
-      <Image
-        className="image"
-        src={pokemon.imgUrl}
-        alt={"image.alt"}
-        width={700}
-        height={700}
-        onLoadingComplete={(e) => {
-          const colorThief = new ColorThief();
-          const color = colorThief.getColor(e);
-          e.parentElement.parentElement.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-        }}
-      />
 
-        <div>
-          <h4><small>#</small>{pokemon.id}</h4>
-          <h1><b>{pokemon.name}</b></h1>
+        <div className="description">
+          <h4>
+            <small>#</small>
+            {pokemon.id}
+          </h4>
+          <h1>
+            <b>{pokemon.name}</b>
+          </h1>
           <span>
-            <small>Height: {(parseFloat(pokemon.height) * 0.1).toFixed(2)}m</small>
-            <b> | </b> 
-            <small>Weight: {(parseFloat(pokemon.weight) * 0.1).toFixed(2)}kg</small>
+            <small>
+              Height: {(parseFloat(pokemon.height) * 0.1).toFixed(2)}m
+            </small>
+            <b> | </b>
+            <small>
+              Weight: {(parseFloat(pokemon.weight) * 0.1).toFixed(2)}kg
+            </small>
           </span>
           <div className="type">
             {pokemon.type.map((e) => {
-              return <span key={e.type.name}>{capitalizeFirstLetter(e.type.name)}</span>;
+              return (
+                <span key={e.type.name}>
+                  {capitalizeFirstLetter(e.type.name)}
+                </span>
+              );
             })}
           </div>
         </div>
       </div>
 
       <div className="information">
-          <hr></hr>
-          <p>TESTE</p>
+        <hr></hr>
+        <p>TESTE</p>
       </div>
-
     </PokeInfo>
   );
 }
@@ -82,7 +97,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
   params,
 }) => {
-  
   const pokemonId = params.id;
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
   const pokemon = await res.json();
