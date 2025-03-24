@@ -1,38 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📌 Web Pokédex Project
 
-## Getting Started
+This project is a functional web-based Pokédex, developed as a case study to explore and apply modern web development technologies, inspired by some designs founded on Behance (like these [Pokedex - Ui Study, from Maria Julia Barbieri](https://www.behance.net/gallery/146710797/Pokedex-Ui-Study), [Pokédex | WebDesign, from Rogélio Martines](https://www.behance.net/gallery/148252385/Pokdex-WebDesign?tracking_source=search_projects|pokedex+pokemon+web&l=20) and [Pokédex, from Abdirahim Arrale](https://www.behance.net/gallery/92008929/Pokdex?tracking_source=search_projects|pokedex+pokemon+web&l=5) ). The application provides an interactive experience for browsing Pokémon data, including their abilities, types, and stats.
 
-First, run the development server:
+# 🛠️ Technologies Used
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+The project was built using:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🟦 TypeScript – Ensures type safety and better code maintainability.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+⚛️ React – Provides a dynamic and component-based UI.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+⏭️ Next.js – Enables server-side rendering (SSR) and static site generation (SSG) for better performance.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# 🎯 Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+🔍 Search for Pokémon by name or ID.
 
-## Learn More
+🎨 Responsive and user-friendly UI.
 
-To learn more about Next.js, take a look at the following resources:
+# 📸 Preview
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![image](https://github.com/user-attachments/assets/846f9e47-5ba9-4a8a-9224-3a253ae69306)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![image](https://github.com/user-attachments/assets/ba321618-398e-41ae-8756-f96273d84d78)
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# 📌 Future Improvements
+📊 Detailed Pokémon stats, abilities, and types. (Still under development)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+🏆 Add Pokémon comparison feature.
+
+🌎 Multi-language support.
+
+💾 Offline mode with caching.
+
+Feel free to explore, contribute, or provide feedback! 🚀🔥
